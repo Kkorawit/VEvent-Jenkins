@@ -8,5 +8,5 @@ services:
       - /mnt/data/jenkins_data/jenkins_home:/var/jenkins_home
       - /mnt/data/jenkins_data/log:/var/log
     ports:
-      - "8081:8081"
-      - "50000:50000"
+      - 8080:8080
+      - 50000:50000
