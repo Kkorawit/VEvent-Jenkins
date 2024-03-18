@@ -1,23 +1,19 @@
 pipeline {
     agent any
     stages {
-        stage("Build")
-        {
-            steps
-            {
+        stage('Update Datetime') {
+            steps {
                 script {
-                        echo "INFO: Building Docker Image"
-                        echo "INFO: Docker Image built"
-                }
-            }
-        }
-        stage("Deploy")
-        {
-            steps
-            {
-                script {
-                    echo "INFO: Running new Docker image"
-                    echo "INFO: Deployed"
+                    def mysqlCommand = "mysql -h capstone23.sit.kmutt.ac.th/kw1 -P 3306 -u root -p 'cp23-db-Vevent' vevent -e \"SELECT title From events;\""
+                    
+                    def process = mysqlCommand.execute()
+                    process.waitFor()
+                    
+                    if (process.exitValue() == 0) {
+                        println "Datetime field updated successfully"
+                    } else {
+                        error "Failed to update datetime field"
+                    }
                 }
             }
         }
