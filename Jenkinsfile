@@ -5,6 +5,7 @@ pipeline {
             steps {
                 script {
                     def updateDate = """
+                    USE vevent;
                     SET SQL_SAFE_UPDATES = 0;
                     UPDATE events SET event_status = IF(NOW()<start_date and NOW()<end_date,'UP',event_status);
                     UPDATE events SET event_status = IF(NOW()>start_date and NOW()<end_date,'ON',event_status); 
